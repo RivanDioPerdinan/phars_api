@@ -136,6 +136,20 @@ def cases():
 
     return jsonify({"count": int(len(out)), "data": out.to_dict(orient="records")})
 
+@app.get("/")
+def home():
+    return jsonify({
+        "message": "PHARS API is running",
+        "health": "/api/health",
+        "metadata": "/api/metadata",
+        "summary": "/api/summary",
+        "cases": "/api/cases"
+    })
+
+
 if __name__ == "__main__":
-    app.run(host="0.0.0.0", port=8000)
+    import os
+    port = int(os.environ.get("PORT", 8000))
+    app.run(host="0.0.0.0", port=port)
+
 
